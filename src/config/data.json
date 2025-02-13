@@ -1,0 +1,19 @@
+{
+  "user": {
+    "msisdn": "0759384958",
+    "name": "Patrick King Pro"
+  },
+  "events": [
+    {
+      "name": "Birthday Party",
+      "date": "13-05-2025",
+      "description": "A fun and interesting borthday party",
+      "start": "13-05-2025T14:00:00",
+      "end": "13-05-2025T14:00:00",
+      "location": {
+        "lat": "12343",
+        "long": "344542"
+      }
+    }
+  ]
+}
