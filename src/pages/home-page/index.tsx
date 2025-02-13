@@ -10,7 +10,7 @@ export function HomePage() {
 
     return (
         <div className={"flex flex-col gap-4 min-h-screen"}>
-            <div className={"h-[60vh] bg-[#FDEDE3] flex flex-col gap-2 items-center justify-center text-center"}>
+            <div className={"h-[60vh] bg-[#FDEDE3] flex flex-col gap-2 items-center justify-center text-center p-4"}>
                 <div
                     className={"size-20 text-4xl shadow-md bg-[#E9EBBD] border-4 border-white rounded-full grid place-content-center"}>
                     🚀
