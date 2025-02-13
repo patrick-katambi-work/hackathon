@@ -11,7 +11,7 @@ import {
     InputOTPSlot
 } from '@dynamic-gen/avengers-ui'
 import {Paragraph} from "../../components/ui/paragraph.tsx";
-import {MoveLeft, MoveRight} from "lucide-react";
+import {MoveRight} from "lucide-react";
 import {MutedParagraph} from "../../components/ui/muted-paragraph.tsx";
 import {REGEXP_ONLY_DIGITS_AND_CHARS} from "input-otp"
 import {Title} from "../../components/ui/title.tsx";
