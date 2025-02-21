@@ -5,14 +5,16 @@ import {BaseLayout} from "../../components/layout/base-layout.tsx";
 import {LandingPage} from "../../pages/landing-page";
 import {HomeValidateOtpPage} from "../../pages/home-validate-otp-page";
 import {EventCreate} from "../../pages/events-create";
+import { EventsListPage } from "../../pages/events-list/index.tsx";
 
 export default function RouterConfig() {
     return (
         <Routes>
+            <Route path={ROUTE_NAMES.HOME} element={<HomePage />} />
+            <Route path={ROUTE_NAMES.LANDING_OTP} element={<HomeValidateOtpPage />} />
             <Route path={ROUTE_NAMES.HOME} element={<BaseLayout />}>
-                <Route path={ROUTE_NAMES.HOME} element={<HomePage />} />
-                <Route path={ROUTE_NAMES.LANDING_OTP} element={<HomeValidateOtpPage />} />
                 <Route path={ROUTE_NAMES.LANDING} element={<LandingPage />} />
+                <Route path={ROUTE_NAMES.EVENTS} element={<EventsListPage />} />
                 <Route path={ROUTE_NAMES.EVENTS_CREATE} element={<EventCreate />} />
             </Route>
         </Routes>
