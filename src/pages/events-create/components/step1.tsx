@@ -23,7 +23,7 @@ import {
     SheetTitle,
     SheetTrigger
 } from "@dynamic-gen/avengers-ui";
-import { Car, Check, CheckCircle, Dot, Heart, House, Info, MoveRight, Music, Plus, Search, Star } from "lucide-react";
+import { Car, Check, CheckCircle, Dot, Heart, House, Info, MoveRight, Music, Search, Star } from "lucide-react";
 import { useState } from "react";
 import { CarouselImages } from "../../../components/carousel-images.tsx";
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
