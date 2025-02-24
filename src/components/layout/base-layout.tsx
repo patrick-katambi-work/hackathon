@@ -37,7 +37,7 @@ export function BaseLayout() {
                     ].map(dt => (
                         <NavLink 
                             to={dt.url} 
-                            // end
+                            end
                             onClick={() => onClick(dt.url)} 
                             className={({isActive}) => clsx(
                                 "h-full w-full flex flex-col gap-1 border-x border-x-transparent items-center justify-center",

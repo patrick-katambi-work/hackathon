@@ -7,6 +7,7 @@ const ROUTE_NAMES = Object.freeze({
     EVENTS_CREATE: '/events/create',
     EVENTS_DETAIL: '/events/:eventId',
     EVENTS_EXPLORE: '/events/explore',
+    EVENTS_EXPLORE_PROFILE: '/events/explore/profile',
 });
 
 export default ROUTE_NAMES;

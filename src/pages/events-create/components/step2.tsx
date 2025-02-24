@@ -16,7 +16,7 @@ type ConversationType = {
     date: string
 }
 
-const sampleConversation: ConversationType[] = [
+export const sampleConversation: ConversationType[] = [
     {
         message: "Hello there? We need to discuss pickup time and what you need to bring on your end",
         type: "sent",

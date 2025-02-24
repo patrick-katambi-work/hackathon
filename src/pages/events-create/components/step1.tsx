@@ -1,10 +1,5 @@
 import {
-    Accordion,
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
     Button,
-    Calendar,
     DatePicker,
     Input,
     Label,
@@ -21,19 +16,22 @@ import {
     SheetDescription,
     SheetHeader,
     SheetTitle,
-    SheetTrigger
+    SheetTrigger,
+    Switch,
+    Textarea
 } from "@dynamic-gen/avengers-ui";
-import { Car, Check, CheckCircle, Dot, Heart, House, Info, MoveRight, Music, Search, Star } from "lucide-react";
+import { Car, Check, House, MoveRight, Music, Search, Star } from "lucide-react";
 import { useState } from "react";
-import { CarouselImages } from "../../../components/carousel-images.tsx";
+import { ProviderProfile } from "../../../components/provider-profile.tsx";
+import { ServiceProvidersSearch } from "../../../components/service-providers-search.tsx";
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
 import { Paragraph } from "../../../components/ui/paragraph.tsx";
-import { Title } from "../../../components/ui/title.tsx";
 import { StepType } from "../index.tsx";
+import { faker } from "@faker-js/faker";
 
 export const serviceProviders = [
     {
-        name: "Ornella Binni",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -41,10 +39,11 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "Transport",
+        price: (Math.random() * 10000000).toFixed(0)
     },
     {
-        name: "Tom Byrom",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -52,10 +51,11 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "Venue",
+        price: (Math.random() * 10000000).toFixed(0)
     },
     {
-        name: "Vladimir Malyavko",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -63,10 +63,11 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "Music",
+        price: (Math.random() * 10000000).toFixed(0)
     },
     {
-        name: "Ornella2 Binni2",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -74,10 +75,11 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "Caterer",
+        price: (Math.random() * 10000000).toFixed(0)
     },
     {
-        name: "Tom2 Byrom2",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -85,10 +87,11 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "Entertainment",
+        price: (Math.random() * 10000000).toFixed(0)
     },
     {
-        name: "Vladimir2 Malyavko2",
+        name: faker.person.fullName(),
         profile: "https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80",
         rating: (3 + Math.min(2, Math.floor(Math.random() * 10))),
         location: {
@@ -96,7 +99,8 @@ export const serviceProviders = [
             district: "Ubungo",
             street: "Mbezi Luis"
         },
-        category: "Transport"
+        category: "MC",
+        price: (Math.random() * 10000000).toFixed(0)
     },
 ]
 
@@ -218,6 +222,11 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
             </div>
 
             <div className="flex flex-col gap-2">
+                <Label>Greeting message</Label>
+                <Textarea rows={10} placeholder="eg. With great joy and excitement, we invite you to celebrate the union of Sarah Johnson and Michael Williams" className="text-sm" />
+            </div>
+
+            <div className="flex flex-col gap-2">
                 <Label>Date of event</Label>
                 <DatePicker/>
             </div>
@@ -289,7 +298,7 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                                 </SheetTrigger>
                                                 <SheetContent
                                                     side={"bottom"}
-                                                    className="h-[80vh] overflow-y-auto flex flex-col gap-4"
+                                                    className="h-[90vh] overflow-y-auto flex flex-col gap-4"
                                                 >
                                                     <SheetHeader>
                                                         <SheetTitle className="text-start">Request service Provider</SheetTitle>
@@ -297,76 +306,7 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                                             Search for a service provider of your choice and match your event calendars
                                                         </SheetDescription>
                                                     </SheetHeader>
-                                                    <Input Icon={<Search size={16} />} placeholder="Enter provider name" />
-                                                    <div className="flex flex-col gap-0">
-                                                        {
-                                                            serviceProviders?.map((provider) => (
-                                                                <Accordion type="single" collapsible>
-                                                                    <AccordionItem value={provider?.name}>
-                                                                        <AccordionTrigger>
-                                                                            <div className="flex items-center gap-2">
-                                                                                <div className="size-14 bg-red-200 rounded-full">
-                                                                                    <img src={provider?.profile} alt=""
-                                                                                            className="w-full h-full object-cover rounded-full"/>
-                                                                                </div>
-                                                                                <div className="flex flex-col gap-0.5">
-                                                                                    <p className="text-xs">{provider?.name}</p>
-                                                                                    <div className="flex items-center gap-2">
-                                                                                        <p className="text-xs text-blue-400">{provider?.category},</p>
-                                                                                        <div className={"flex items-center gap-1"}>
-                                                                                            {Array.from({length: 5}, (_, index) => (
-                                                                                                <Star
-                                                                                                    size={12}
-                                                                                                    fill={index > (provider?.rating - 1) ? "white" : "#212121"}
-                                                                                                />
-                                                                                            ))}
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <p className="text-xs text-gray-500">{provider?.location?.region}, {provider?.location?.district}, {provider?.location?.street}</p>
-                                                                                </div>
-                                                                            </div>
-                                                                        </AccordionTrigger>
-                                                                        <AccordionContent className="flex flex-col gap-2">
-                                                                            <div className="flex items-start gap-1 text-red-500">
-                                                                                <Info size={15} />
-                                                                                <p className="text-xs">{provider?.name} is not available on {new Date().toDateString()}</p>
-                                                                            </div>
-                                                                            <p className="text-xs">Here is when {provider?.name} becomes available</p>
-                                                                            <Calendar
-                                                                                mode="multiple"
-                                                                                selected={[
-                                                                                        new Date(), 
-                                                                                        (() => {
-                                                                                            const today = new Date();
-                                                                                            const tomorrow = new Date();
-                                                                                            tomorrow.setDate(today.getDate() + 1);
-                                                                                            return tomorrow;
-                                                                                        })(), 
-                                                                                        (() => {
-                                                                                            const today = new Date();
-                                                                                            const tomorrow = new Date();
-                                                                                            tomorrow.setDate(today.getDate() + 3);
-                                                                                            return tomorrow;
-                                                                                        })(), 
-                                                                                        (() => {
-                                                                                            const today = new Date();
-                                                                                            const tomorrow = new Date();
-                                                                                            tomorrow.setDate(today.getDate() + 4);
-                                                                                            return tomorrow;
-                                                                                        })()
-                                                                                    ]
-                                                                                }
-                                                                            />
-                                                                            <fieldset className="flex flex-col gap-1">
-                                                                                <Label className="text-xs text-gray-600">Change Event Date</Label>
-                                                                                <DatePicker />
-                                                                            </fieldset>
-                                                                        </AccordionContent>
-                                                                    </AccordionItem>
-                                                                </Accordion>
-                                                            ))
-                                                        }
-                                                    </div>
+                                                    <ServiceProvidersSearch isCreateStep />
                                                 </SheetContent>
                                             </Sheet>
                                             {
@@ -405,103 +345,7 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                                                     </SheetDescription>
                                                                 </SheetHeader>
 
-                                                                <div className={"flex flex-col gap-1 items-center"}>
-                                                                        <div
-                                                                            className="size-24 rounded-full">
-                                                                            <img src={serviceProvider?.profile} alt=""
-                                                                                 className="w-full h-full border-4 border-white shadow-lg object-cover rounded-full"/>
-                                                                        </div>
-                                                                        <Title
-                                                                            level={"h1"}>{serviceProvider?.name}</Title>
-                                                                    </div>
-
-                                                                    <div className="grid grid-cols-3 gap-4">
-                                                                        {
-                                                                            [
-                                                                                {label: "Category", value: target?.label},
-                                                                                {label: "Rating", value: serviceProvider?.rating, kind: "rating"},
-                                                                                {
-                                                                                    label: "Price",
-                                                                                    value: 2500000,
-                                                                                    kind: "money"
-                                                                                },
-                                                                                {label: "Region", value: serviceProvider?.location?.region},
-                                                                                {label: "District", value: serviceProvider?.location?.district},
-                                                                                {label: "Street", value: serviceProvider?.location?.street},
-                                                                            ].map(dt => {
-                                                                                if (dt?.kind === "rating") {
-                                                                                    return (
-                                                                                        <div className={"flex flex-col items-center gap-3"}>
-                                                                                            <MutedParagraph className="text-xs">{dt?.label}</MutedParagraph>
-                                                                                                <div className={"flex items-center gap-1 -mt-1"}>
-                                                                                                    {Array.from({length: 5}, (_, index) => (
-                                                                                                        <Star
-                                                                                                            size={12}
-                                                                                                            fill={index > (serviceProvider?.rating - 1) ? "white" : "#212121"}
-                                                                                                        />
-                                                                                                    ))}
-                                                                                                </div>
-                                                                                        </div>
-                                                                                    )
-                                                                                }
-
-                                                                                if (dt?.kind === "money") {
-                                                                                    return (
-                                                                                        <div
-                                                                                            key={dt?.label}
-                                                                                            className={"flex flex-col items-center gap-1"}
-                                                                                        >
-                                                                                            <MutedParagraph className="text-xs">{dt?.label}</MutedParagraph>
-                                                                                            <Paragraph
-                                                                                                className={"text-center font-semibold text-xs"}>{dt?.value?.toLocaleString()}</Paragraph>
-                                                                                        </div>
-                                                                                    )
-                                                                                }
-
-                                                                                return (
-                                                                                    <div
-                                                                                        key={dt?.label}
-                                                                                        className={"flex flex-col items-center gap-1"}
-                                                                                    >
-                                                                                        <MutedParagraph className="text-xs">{dt?.label}</MutedParagraph>
-                                                                                        <Paragraph
-                                                                                            className={"text-center font-semibold text-xs"}>{dt?.value}</Paragraph>
-                                                                                    </div>
-                                                                                )
-                                                                            })
-                                                                        }
-                                                                    </div>
-
-                                                                    <CarouselImages />
-
-                                                                    <Button>Book for Event <CheckCircle /></Button>
-
-                                                                    <Title level={"h4"}>Comments</Title>
-
-                                                                    <div className="flex flex-col gap-0">
-                                                                        {
-                                                                            Array.from({length: 5}).map(() => (
-                                                                                <div className="grid grid-cols-[56px_1fr] gap-2 border-b pt-4 pb-3">
-                                                                                    <div className="size-14 flex rounded-full border bg-red-300">
-                                                                                        <img src={serviceProvider?.profile} alt=""
-                                                                                            className="w-full h-full object-cover border-4 border-white shadow-sm rounded-full"/>
-                                                                                    </div>
-                                                                                    <div className="flex flex-col gap-1">
-                                                                                        <Paragraph className={"font-bold text-sm"}>PSK.net <span className="text-blue-400 font-normal">@code-kings</span></Paragraph>
-                                                                                        <Paragraph className={"text-sm text-gray-600"}>Just did my event with them, highly recommend them 🔥🔥🔥🔥</Paragraph>
-                                                                                        <div className="flex items-center gap-0">
-                                                                                            <Paragraph className={"text-xs text-gray-500"}>Mar 14</Paragraph>
-                                                                                            <Dot />
-                                                                                            <div className="flex items-center gap-1">
-                                                                                                <Heart size={14} fill="#212121" />
-                                                                                                <Paragraph className={"text-xs text-gray-500"}>767</Paragraph>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            ))
-                                                                        }
-                                                                    </div>
+                                                                <ProviderProfile serviceProvider={serviceProvider} />
                                                             </SheetContent>
                                                         </Sheet>
                                                     ))
@@ -521,8 +365,16 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                 ) : null}
             </div>
 
+            <div className="flex flex-col gap-2">
+                <Label>Payment</Label>
+                <div className="flex items-center gap-4 justify-between text-sm">
+                    <p>Use Changisha</p>
+                    <Switch checked />
+                </div>
+            </div>
+
             <Button onClick={() => props?.onChangeStep(2)}>
-                <Paragraph className="text-sm">Proceed</Paragraph>
+                <Paragraph className="text-sm">Create Event</Paragraph>
                 <MoveRight/>
             </Button>
         </div>

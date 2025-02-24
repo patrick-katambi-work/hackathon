@@ -15,10 +15,10 @@ import { useEffect, useState } from "react";
 
 export function CarouselImages() {
   const images = [
-    "https://lh3.googleusercontent.com/p/AF1QipP0LLFqQ42dfgpVqb-IHIOFKdALXbUG9etiezxl=s1360-w1360-h1020",
-    "https://lh5.googleusercontent.com/p/AF1QipOjxTccKfG3PQyLYi-fboPoOef8ku68DrrF0eoR=w141-h118-n-k-no-nu",
-    "https://lh5.googleusercontent.com/p/AF1QipPaxxm_3QDDG8avwPcTsTP1YwT38KPMF1ppHukh=w141-h101-n-k-no-nu",
-    "https://lh5.googleusercontent.com/p/AF1QipPJOhRlFIEhwL_1RMqUDkpGNgn8OueuoDGfqQTd=w141-h101-n-k-no-nu",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4tluOMwuVCGGGaDvMxrQ-FO4RvBb7RhN1Xw&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReKEYBM-2VgNOJFZZAzRro97m4_eGzFUD19g&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrtVfa4D_9UavnUBWo2DwTsu3ENCX5pArxKw&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd_g896cyQ2r0AX8XU0kWbDX2822CQ5nLe6A&s",
   ];
 
   const [api, setApi] = useState<CarouselApi>();
