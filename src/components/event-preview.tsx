@@ -10,7 +10,7 @@ const images = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtVTF-3TU3LOPdM03_oEvqXPi2hH4EW0tfRg&s"
 ]
 
-export function EventPreview({isPublic, isOwner}: {isPublic?: boolean, isOwner?: boolean}) {
+export function EventPreview({isPublic, isOwner, isinvited}: {isPublic?: boolean, isOwner?: boolean, isinvited?: boolean, alreadyPledged?: boolean}) {
     const inviteMessage = "Dear Emily, With great joy and excitement, we invite you to celebrate the union of Sarah Johnson and Michael Williams as we begin this new chapter of our lives together. Your presence will make our celebration truly special, and we can't wait to share this unforgettable day with you! Warmly, Sarah & Michael."
     return (
         <div className="space-y-4 pb-8">
@@ -52,9 +52,17 @@ export function EventPreview({isPublic, isOwner}: {isPublic?: boolean, isOwner?:
                             </div>
                         ): null}
                 </div>
-                <div style={{display: isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                <div style={{display: !isPublic ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Public Event</p>
+                </div>
+                <div style={{display: !isinvited ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
                     <CheckCircle size={14} />
                     <p>You are invited</p>
+                </div>
+                <div style={{display: !isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Owner</p>
                 </div>
             </div>
         </div>

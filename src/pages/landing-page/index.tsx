@@ -5,6 +5,7 @@ import { MutedParagraph } from "../../components/ui/muted-paragraph.tsx";
 import { Title } from "../../components/ui/title.tsx";
 import { useLandingPage } from "./use-landing-page.tsx";
 import { EventSummary } from "../../components/event-summary.tsx";
+import { eventsBank } from "../events-preview/index.tsx";
 
 export function LandingPage() {
     const {data} = useLandingPage();
@@ -23,7 +24,7 @@ export function LandingPage() {
             <Container className={"grid gap-3 px-4"}>
                 <MutedParagraph className={"text-muted-foreground text-sm"}>Public Events</MutedParagraph>
                 <div className="flex flex-col gap-8">
-                    {Array.from({length: 4}).map(() => <EventSummary isPublic />)}
+                    {eventsBank?.filter(ev => ev?.isPublic).map(() => <EventSummary isPublic />)}
                 </div>
             </Container>
             <br/>

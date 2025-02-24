@@ -9,9 +9,9 @@ const images = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtVTF-3TU3LOPdM03_oEvqXPi2hH4EW0tfRg&s"
 ]
 
-export function EventSummary({isPublic, isOwner}: {isPublic?: boolean, isOwner?: boolean}) {
+export function EventSummary({isPublic, isOwner, isinvited, alreadyPledged}: {isPublic?: boolean, isOwner?: boolean, isinvited?: boolean, alreadyPledged?: boolean}) {
     const navigate = useNavigate();
-    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS}/9754830403493`)
+    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS}/9754830403493?isOwner=${isOwner ? "true" : ""}&isinvited=${isinvited ? "true" : ""}&alreadyPledged=${alreadyPledged ? "true" : ""}`)
     return (
         <div onClick={onClick} className="space-y-4 border-b pb-8 cursor-pointer">
             <img 
@@ -37,9 +37,17 @@ export function EventSummary({isPublic, isOwner}: {isPublic?: boolean, isOwner?:
                         <div className="absolute w-[60%] h-full bg-red-500 rounded-r-full"></div>
                     </div>
                 </div>
-                <div style={{display: isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                <div style={{display: !isPublic ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Public Event</p>
+                </div>
+                <div style={{display: !isinvited ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
                     <CheckCircle size={14} />
                     <p>You are invited</p>
+                </div>
+                <div style={{display: !isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Owner</p>
                 </div>
             </div>
         </div>
