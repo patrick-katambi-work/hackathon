@@ -3,8 +3,11 @@ import profileImage from '../../assets/profile.jpg'
 import { Title } from '../../components/ui/title';
 import { useLandingPage } from '../landing-page/use-landing-page';
 import { BellIcon, LogOut, Palette, ScanFace } from 'lucide-react';
+import { useNavigate } from 'react-router';
+import ROUTE_NAMES from '../../config/router/route-names';
 
 export function ProfilePage() {
+    const navigate = useNavigate()
     const {data} = useLandingPage();
     return (
         <div className={"flex flex-col items-center gap-4 w-full px-4"}>
@@ -42,7 +45,7 @@ export function ProfilePage() {
             <div className='w-full space-y-2'>
                 <p className='text-muted-foreground text-xs'>Other</p>
                 <div className='w-full space-y-0'>
-                    <div className='flex items-center gap-4 w-full py-4 border-y text-primary bg-primary/10 px-2'>
+                    <div onClick={() => navigate(ROUTE_NAMES.HOME)} className='cursor-pointer flex items-center gap-4 w-full py-4 border-y text-primary bg-primary/10 px-2'>
                         <LogOut size={16} />
                         <p className='text-sm'>Logout</p>
                     </div>
