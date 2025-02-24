@@ -61,7 +61,7 @@ export function ServiceProvidersSearch(props: {isCreateStep?: boolean}) {
                         <Accordion type="single" collapsible>
                             <AccordionItem value={provider?.name}>
                                 <AccordionTrigger>
-                                    <div onClick={onClick} className="flex items-center gap-2 cursor-pointer">
+                                    <div className="flex items-center gap-2 cursor-pointer">
                                         <div className="size-14 bg-red-200 rounded-full">
                                             <img src={provider?.profile} alt=""
                                                     className="w-full h-full object-cover rounded-full"/>

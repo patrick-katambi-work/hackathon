@@ -6,7 +6,7 @@ import { MutedParagraph } from "./ui/muted-paragraph"
 import { Paragraph } from "./ui/paragraph"
 import { Title } from "./ui/title"
 
-export function ProviderProfile({serviceProvider} : {serviceProvider: typeof serviceProviders[0]}) {
+export function ProviderProfile({serviceProvider, showCalendar} : {serviceProvider: typeof serviceProviders[0], showCalendar?: boolean}) {
     return (
         <div className="flex flex-col gap-8">
             <div className={"flex flex-col gap-1 items-center"}>
@@ -81,7 +81,7 @@ export function ProviderProfile({serviceProvider} : {serviceProvider: typeof ser
 
             <CarouselImages />
 
-            <div className="space-y-2">
+            <div style={{display: showCalendar ? "block" : "none"}} className="space-y-2">
                 <p className="text-sm">Here is when <strong>{serviceProvider?.name}</strong> becomes available</p>
                 <Calendar
                     mode="multiple"

@@ -26,7 +26,7 @@ export function ViewPledges() {
                     View Pledges
                 </Button>
             </SheetTrigger>
-            <SheetContent side={"bottom"} className="h-[90vh] overflow-y-auto flex flex-col gap-4">
+            <SheetContent side={"bottom"} className="h-[90vh] overflow-y-auto flex flex-col gap-4 rounded-t-xl">
                 <SheetHeader>
                     <SheetTitle className="text-start">Pledges</SheetTitle>
                     <SheetDescription className="text-start">

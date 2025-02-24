@@ -9,9 +9,9 @@ const images = [
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtVTF-3TU3LOPdM03_oEvqXPi2hH4EW0tfRg&s"
 ]
 
-export function EventSummary({isPublic, isOwner, isinvited, alreadyPledged}: {isPublic?: boolean, isOwner?: boolean, isinvited?: boolean, alreadyPledged?: boolean}) {
+export function EventSummary({isPublic, isOwner, isinvited, alreadyPledged, paid}: {isPublic?: boolean, isOwner?: boolean, isinvited?: boolean, alreadyPledged?: boolean, paid?: boolean}) {
     const navigate = useNavigate();
-    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS}/9754830403493?isOwner=${isOwner ? "true" : ""}&isinvited=${isinvited ? "true" : ""}&alreadyPledged=${alreadyPledged ? "true" : ""}`)
+    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS}/9754830403493?isOwner=${isOwner ? "true" : ""}&isinvited=${isinvited ? "true" : ""}&alreadyPledged=${alreadyPledged ? "true" : ""}&isPublic=${isPublic ? "true" : ""}&paid=${paid ? "true" : ""}`)
     return (
         <div onClick={onClick} className="space-y-4 border-b pb-8 cursor-pointer">
             <img 

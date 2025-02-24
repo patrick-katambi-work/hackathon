@@ -32,6 +32,18 @@ export function EventPreview({isPublic, isOwner, isinvited}: {isPublic?: boolean
                     <CalendarCheck size={18} />
                     <p className="text-sm text-muted-foreground">{new Date().toDateString()}, 5pm - 11pm</p>
                 </div>
+                <div style={{display: !isPublic ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Public Event</p>
+                </div>
+                <div style={{display: !isinvited ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>You are invited</p>
+                </div>
+                <div style={{display: !isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
+                    <CheckCircle size={14} />
+                    <p>Owner</p>
+                </div>
                 <div style={{display: isPublic ? "none" : "block"}} className="space-y-1">
                     <p className="text-xs text-muted-foreground text-center">Pledges Collected</p>
                     <p className="text-sm text-muted-foreground text-center">{(pledgers?.reduce((acc, itr) => acc + itr?.paid, 0)).toLocaleString()} / {(pledgers?.reduce((acc, itr) => acc + itr?.pledge, 0)).toLocaleString()} TZS</p>
@@ -51,18 +63,6 @@ export function EventPreview({isPublic, isOwner, isinvited}: {isPublic?: boolean
                                 </div>
                             </div>
                         ): null}
-                </div>
-                <div style={{display: !isPublic ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
-                    <CheckCircle size={14} />
-                    <p>Public Event</p>
-                </div>
-                <div style={{display: !isinvited ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
-                    <CheckCircle size={14} />
-                    <p>You are invited</p>
-                </div>
-                <div style={{display: !isOwner ? "none" : "flex"}} className="items-center gap-2 text-muted-foreground w-fit text-xs pt-2">
-                    <CheckCircle size={14} />
-                    <p>Owner</p>
                 </div>
             </div>
         </div>

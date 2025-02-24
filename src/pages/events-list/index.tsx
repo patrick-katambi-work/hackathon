@@ -19,7 +19,7 @@ export function EventsListPage() {
 
             <Container className={"grid gap-3"}>
                 <div className="flex flex-col gap-8">
-                    {eventsBank?.filter(ev => ev?.isinvited || ev?.isOwner).map((ev) => <EventSummary isOwner={ev?.isOwner} isinvited={ev?.isinvited} alreadyPledged={ev?.alreadyPledged} />)}
+                    {eventsBank?.filter(ev => ev?.isinvited || ev?.isOwner).map((ev) => <EventSummary paid={ev?.paid} isOwner={ev?.isOwner} isinvited={ev?.isinvited} alreadyPledged={ev?.alreadyPledged} />)}
                 </div>
             </Container>
 

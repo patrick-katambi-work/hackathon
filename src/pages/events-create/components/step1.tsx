@@ -4,13 +4,6 @@ import {
     Input,
     Label,
     MultiSelect,
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
     Sheet,
     SheetContent,
     SheetDescription,
@@ -20,6 +13,7 @@ import {
     Switch,
     Textarea
 } from "@dynamic-gen/avengers-ui";
+import { faker } from "@faker-js/faker";
 import { Car, Check, House, MoveRight, Music, Search, Star } from "lucide-react";
 import { useState } from "react";
 import { ProviderProfile } from "../../../components/provider-profile.tsx";
@@ -27,7 +21,6 @@ import { ServiceProvidersSearch } from "../../../components/service-providers-se
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
 import { Paragraph } from "../../../components/ui/paragraph.tsx";
 import { StepType } from "../index.tsx";
-import { faker } from "@faker-js/faker";
 
 export const serviceProviders = [
     {
@@ -131,10 +124,6 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
     ];
     const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
 
-    const countries = [{label: "Tanzania", value: "TZ"}];
-    const regions = [{label: "Dar es Salaam", value: "dsm"}];
-    const districts = [{label: "Kinondoni", value: "kinondoni"}];
-
     return (
         <div className="flex flex-col gap-6">
             <Paragraph className="text-sm">
@@ -145,59 +134,13 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
             <hr/>
 
             <div className="flex flex-col gap-2">
-                <Label>Country</Label>
-                <Select defaultValue="TZ" disabled>
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select ..."/>
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Countries</SelectLabel>
-                            {countries?.map((dt) => (
-                                <SelectItem value={dt?.value}>{dt?.label}</SelectItem>
-                            ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-                <Label>Region</Label>
-                <Select>
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder="..."/>
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Regions</SelectLabel>
-                            {regions?.map((dt) => (
-                                <SelectItem value={dt?.value}>{dt?.label}</SelectItem>
-                            ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </div>
-
-            <div className="flex flex-col gap-2">
-                <Label>District</Label>
-                <Select>
-                    <SelectTrigger className="w-full">
-                        <SelectValue placeholder="..."/>
-                    </SelectTrigger>
-                    <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Districts</SelectLabel>
-                            {districts?.map((dt) => (
-                                <SelectItem value={dt?.value}>{dt?.label}</SelectItem>
-                            ))}
-                        </SelectGroup>
-                    </SelectContent>
-                </Select>
-            </div>
-
-            <div className="flex flex-col gap-2">
                 <Label>Event name</Label>
                 <Input placeholder="Event name ..." />
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <Label>Location</Label>
+                <Input placeholder="Enter location ..." />
             </div>
 
             <div className="flex flex-col gap-2">
@@ -298,7 +241,7 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                                 </SheetTrigger>
                                                 <SheetContent
                                                     side={"bottom"}
-                                                    className="h-[90vh] overflow-y-auto flex flex-col gap-4"
+                                                    className="h-[90vh] overflow-y-auto flex flex-col gap-4 rounded-t-xl"
                                                 >
                                                     <SheetHeader>
                                                         <SheetTitle className="text-start">Request service Provider</SheetTitle>
@@ -335,7 +278,7 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
                                                             <SheetContent
                                                                 side={"bottom"}
-                                                                className="h-[80vh] overflow-y-auto flex flex-col gap-4"
+                                                                className="h-[90vh] overflow-y-auto flex flex-col gap-4 rounded-t-xl"
                                                             >
                                                                 <SheetHeader>
                                                                     <SheetTitle

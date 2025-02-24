@@ -16,7 +16,7 @@ export function ShareInvite() {
                     Share Invite
                 </Button>
             </SheetTrigger>
-            <SheetContent side={"bottom"} className="h-[90vh] overflow-y-auto flex flex-col gap-4">
+            <SheetContent side={"bottom"} className="h-[90vh] overflow-y-auto flex flex-col gap-4 rounded-t-xl">
                 <SheetHeader>
                     <SheetTitle className="text-start">Share Invite</SheetTitle>
                     <SheetDescription className="text-start">

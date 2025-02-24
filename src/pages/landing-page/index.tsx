@@ -24,7 +24,7 @@ export function LandingPage() {
             <Container className={"grid gap-3 px-4"}>
                 <MutedParagraph className={"text-muted-foreground text-sm"}>Public Events</MutedParagraph>
                 <div className="flex flex-col gap-8">
-                    {eventsBank?.filter(ev => ev?.isPublic).map(() => <EventSummary isPublic />)}
+                    {eventsBank?.filter(ev => ev?.isPublic).map((ev) => <EventSummary isPublic paid={ev?.paid} />)}
                 </div>
             </Container>
             <br/>
