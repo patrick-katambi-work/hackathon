@@ -1,10 +1,11 @@
 import { faker } from '@faker-js/faker';
-import { CalendarCheck, CheckCircle, MapPin } from "lucide-react";
+import { CalendarCheck, CheckCircle, DownloadCloud, MapPin } from "lucide-react";
 import { ShareInvite } from "../pages/events-preview/components/share-invite";
 import { pledgers, ViewPledges } from "../pages/events-preview/components/view-pledges";
 import { EventServiceProviders } from '../pages/events-preview/components/providers';
 import { BackButton } from './ui/back-button';
 import { ChatWithProviders } from '../pages/events-preview/components/chat-with-providers';
+import { Button } from '@dynamic-gen/avengers-ui';
 
 const images = [
     "https://media-api.xogrp.com/images/6f236acd-f81e-457c-95c2-8613d6dc90c9~rs_768.h",
@@ -54,6 +55,8 @@ export function EventOwnerPreview() {
                             <p className="text-xs text-muted-foreground text-center">Service Providers</p>
                             <EventServiceProviders />
                         </div>
+                        <br />
+                        <Button variant={"secondary"} className='border w-full'><DownloadCloud /> Get Report</Button>
                     </div>
                 </div>
             </div>

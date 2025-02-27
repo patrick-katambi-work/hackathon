@@ -2,7 +2,7 @@ import { Button, Input } from "@dynamic-gen/avengers-ui";
 import { faker } from "@faker-js/faker";
 import { MapPin, MoveRight, Plus, Search, TicketCheck } from "lucide-react";
 import { useNavigate } from "react-router";
-import profileImage from "../../assets/profile.jpg";
+import profileImage from "../../assets/logo.jpeg";
 import { Title } from "../../components/ui/title.tsx";
 import ROUTE_NAMES from "../../config/router/route-names.ts";
 import { serviceProviders } from "../events-create/components/step1.tsx";
@@ -20,11 +20,11 @@ export function LandingPage() {
             </div>
 
             <div className="grid grid-cols-2 gap-4 justify-end">
-                <div className="w-full p-4 rounded-lg border flex flex-col gap-2 items-center bg-blue-50">
+                <div className="w-full rounded-lg border flex flex-col gap-2 px-4 py-8 cursor-pointer items-center bg-blue-50">
                     <TicketCheck />
                     <p className="text-sm text-center">My Tickets</p>
                 </div>
-                <div onClick={() => navigate(ROUTE_NAMES.EVENTS_CREATE)} className="w-full p-4 cursor-pointer gap-2 rounded-lg border flex flex-col items-center bg-red-100">
+                <div onClick={() => navigate(ROUTE_NAMES.EVENTS_CREATE)} className="w-full px-4 py-8 cursor-pointer gap-2 rounded-lg border flex flex-col items-center bg-red-100">
                     <Plus />
                     <p className="text-sm text-center">Create Event</p>
                 </div>
@@ -42,16 +42,19 @@ export function LandingPage() {
 
 function FeaturedProviders() {
     const providers = serviceProviders;
+    const navigate = useNavigate();
+    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS_EXPLORE_PROFILE}`)
+    const onClick2 = () => navigate(`${ROUTE_NAMES.EVENTS_EXPLORE}`)
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center gap-4 justify-between">
                 <p className="text-muted-foreground text-sm">Featured Providers</p>
-                <Button size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
+                <Button onClick={onClick2} size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
             </div>
             <div className="-mx-4 pl-4 flex items-center gap-4 overflow-x-auto">
                 {
                     providers?.map(provider => (
-                        <div className="flex flex-col gap-1 items-center pb-2 cursor-pointer">
+                        <div onClick={onClick} className="flex flex-col gap-1 items-center pb-2 cursor-pointer">
                             <div className="h-16 w-24 grid place-content-center">
                                 <img src={provider?.profile} alt="profile" className="size-16 rounded-full border-4 border-white shadow-md" />
                             </div>
@@ -68,11 +71,12 @@ function FeaturedEvents() {
     const providers = serviceProviders;
     const navigate = useNavigate();
     const onClick = (name: string) => navigate(`${ROUTE_NAMES.EVENTS}/${name}/public`)
+    const onClick2 = () => navigate(`${ROUTE_NAMES.EVENTS_EXPLORE}`)
     return (
         <div className="flex flex-col gap-2">
             <div className="flex items-center gap-4 justify-between">
                 <p className="text-muted-foreground text-sm">Featured Events</p>
-                <Button size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
+                <Button onClick={onClick2} size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
             </div>
             <div className="-mx-4 pl-4 flex items-center gap-4 overflow-x-auto">
                 {
@@ -99,11 +103,12 @@ export function UpcomingEvents(props: {hideTitle?: boolean}) {
     const providers = serviceProviders;
     const navigate = useNavigate();
     const onClick = (name: string) => navigate(`${ROUTE_NAMES.EVENTS}/${name}/public`)
+    const onClick2 = () => navigate(`${ROUTE_NAMES.EVENTS_EXPLORE}`)
     return (
         <div className="flex flex-col gap-2">
             <div style={{display: props?.hideTitle ? "none" : "flex"}} className="items-center gap-4 justify-between">
                 <p className="text-muted-foreground text-sm">Upcoming Public Events</p>
-                <Button size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
+                <Button onClick={onClick2} size={"default"} variant={"link"}>Seel all <MoveRight /></Button>
             </div>
             <div className="-mx-4 pl-4 grid grid-cols-2 gap-4 px-2">
                 {

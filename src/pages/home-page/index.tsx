@@ -3,6 +3,7 @@ import { MoveRight, X } from "lucide-react";
 import { useNavigate } from "react-router";
 import { Title } from "../../components/ui/title.tsx";
 import ROUTE_NAMES from "../../config/router/route-names.ts";
+import logo from '../../assets/logo.jpeg'
 
 export function HomePage() {
     const navigate = useNavigate();
@@ -10,9 +11,10 @@ export function HomePage() {
 
     return (
         <div className={"flex flex-col gap-4 min-h-screen p-4"}>
+            <img src={logo} alt="" className="size-20 rounded-full border-4 border-white shadow-lg self-center" />
             <div className="h-screen grid grid-rows-12 gap-4">
                 <div className="row-span-1">
-                    <header className="">
+                    <header className="text-center">
                         <Title>Terms and Services</Title>
                         <p className="text-sm text-gray-600">Last updated: February 26, 2025</p>
                     </header>

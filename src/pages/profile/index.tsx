@@ -1,4 +1,4 @@
-import { Switch } from '@dynamic-gen/avengers-ui';
+import { Switch, RadioGroup, RadioGroupItem, Badge } from '@dynamic-gen/avengers-ui';
 import profileImage from '../../assets/profile.jpg'
 import { Title } from '../../components/ui/title';
 import { useLandingPage } from '../landing-page/use-landing-page';
@@ -11,10 +11,32 @@ export function ProfilePage() {
     const {data} = useLandingPage();
     return (
         <div className={"flex flex-col items-center gap-4 w-full px-4"}>
-            <img src={profileImage} alt='profile' className='size-[200px] object-cover rounded-full border-4 border-white shadow-lg' />
+            <img src={profileImage} alt='profile' className='size-[100px] object-cover rounded-full border-4 border-white shadow-lg' />
             <div className='text-xs text-center space-y-1'>
                 <Title level='h3'>{data?.user?.name}</Title>
                 <p>{data?.user?.msisdn}</p>
+            </div>
+
+            <div className='w-full space-y-2'>
+                <p className='text-muted-foreground text-xs'>Your Accounts</p>
+                <div className='w-full space-y-0'>
+                    <RadioGroup value="option-1" className='grid grid-cols-2 gap-4'>
+                        {
+                            [
+                                {value: "option-1", name: data?.user?.name, kind: "Normal user"},
+                                {value: "option-2", name: data?.user?.name, kind: "Service Provider"},
+                            ].map(dt => (
+                                    <div className="flex items-start space-x-2">
+                                        <RadioGroupItem value={dt?.value} id={dt?.value} className='mt-1.5' />
+                                        <div className='space-y-1'>
+                                            {/* <p className='font-bold text-base'>{dt?.name}</p> */}
+                                            <Badge variant={"outline"} className='bg-orange-100 border'>{dt?.kind}</Badge>
+                                        </div>
+                                    </div>
+                            ))
+                        }
+                    </RadioGroup>
+                </div>
             </div>
             
             <div className='w-full space-y-2'>
