@@ -245,7 +245,7 @@ export function StepOne(_: { onChangeStep: (step: StepType) => void }) {
                                             {name: "DJ & MC", total: "1.5M Tsh", note: "", provider: "@Warioba", location: "Dar es Salaam"},
                                             {name: "Venue", total: "2M Tsh", note: "", provider: "@KualaLumpar", location: "Dar es Salaam"},
                                             {name: "Food", total: "3M Tsh", note: "200 x 15k", provider: "@KualaLumpar", location: "Dar es Salaam"},
-                                            {name: "Beverage", total: "9M Tsh", note: "2500 x 3 x 200", provider: "@Massawe_Liquor_Mabibo_House_Of_Drinks", location: "Dar es Salaam"},
+                                            {name: "Beverage", total: "9M Tsh", note: "2500 x 3 x 200", provider: "@Massawe_Liquor", location: "Dar es Salaam"},
                                             {name: "Photograph", total: "1.5 Tsh", note: "", provider: "", location: "Dar es Salaam"},
                                             {name: "Cake", total: "2M Tsh", note: "", provider: "", location: "Dar es Salaam"},
                                             {name: "Transport", total: "400k Tsh", note: "2 x 200k", provider: "", location: "Dar es Salaam"},
