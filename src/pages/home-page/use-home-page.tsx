@@ -19,7 +19,7 @@ export function useHomePage() {
     })
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    function onSubmit(_: z.infer<typeof formSchema>) {
         navigate(ROUTE_NAMES.LANDING_OTP)
     }
 

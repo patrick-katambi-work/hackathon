@@ -1,9 +1,15 @@
 import {
+    Badge,
     Button,
     DatePicker,
     Input,
     Label,
     MultiSelect,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
     Sheet,
     SheetContent,
     SheetDescription,
@@ -12,23 +18,17 @@ import {
     SheetTrigger,
     Switch,
     Textarea,
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-    Badge,
 } from "@dynamic-gen/avengers-ui";
-import { fa, faker } from "@faker-js/faker";
+import { faker } from "@faker-js/faker";
 import clsx from "clsx";
 import { ArrowUp, Car, Check, House, Minus, MoveRight, Music, Plus, Search, Settings, Star } from "lucide-react";
 import { useState } from "react";
+import { MoonLoader } from "react-spinners";
 import { ProviderProfile } from "../../../components/provider-profile.tsx";
 import { ServiceProvidersSearch } from "../../../components/service-providers-search.tsx";
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
 import { Paragraph } from "../../../components/ui/paragraph.tsx";
 import { StepType } from "../index.tsx";
-import { MoonLoader } from "react-spinners";
 
 export type CreateFormData = {
     name?: string;
@@ -120,7 +120,7 @@ export const serviceProviders = [
     },
 ]
 
-export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
+export function StepOne(_: { onChangeStep: (step: StepType) => void }) {
     const eventFeaturesList = [
         {
             value: "dj",

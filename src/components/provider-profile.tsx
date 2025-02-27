@@ -1,11 +1,11 @@
 import { Badge, Button, Calendar } from "@dynamic-gen/avengers-ui"
 import { CheckCircle, Heart, Star, X } from "lucide-react"
+import { useState } from "react"
 import { CreateFormData, serviceProviders } from "../pages/events-create/components/step1"
 import { CarouselImages } from "./carousel-images"
 import { MutedParagraph } from "./ui/muted-paragraph"
 import { Paragraph } from "./ui/paragraph"
 import { Title } from "./ui/title"
-import { useState } from "react"
 
 export function ProviderProfile({serviceProvider, showCalendar, onChangeFormData, isSelected} : {serviceProvider: typeof serviceProviders[0], showCalendar?: boolean, 
     onChangeFormData: (key: keyof CreateFormData, value?: string | boolean | Date | {
@@ -13,8 +13,8 @@ export function ProviderProfile({serviceProvider, showCalendar, onChangeFormData
         name: string;
         category: string;
         package?: {
-            id: string;
-            price: string;
+            id?: string;
+            price?: string;
         };
     }) => void,
     isSelected?: boolean

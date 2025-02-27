@@ -9,7 +9,7 @@ export function EventsExploreProfilePage() {
         <div className="p-4 h-full relative space-y-4">
             <BackButton label="Explore" />
 
-            <ProviderProfile serviceProvider={profile} showCalendar />
+            <ProviderProfile onChangeFormData={() => {}} serviceProvider={profile} showCalendar />
             <br />
             <br />
             <br />
