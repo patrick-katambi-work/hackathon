@@ -106,7 +106,7 @@ export function EventsPreview() {
     )
 }
 
-function CompletedPayment() {
+export function CompletedPayment() {
     return (
         <div className="w-full flex flex-col gap-4">
             <div className="flex items-center justify-center gap-1">

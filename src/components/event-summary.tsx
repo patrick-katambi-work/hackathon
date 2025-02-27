@@ -11,7 +11,25 @@ const images = [
 
 export function EventSummary({isPublic, isOwner, isinvited, alreadyPledged, paid}: {isPublic?: boolean, isOwner?: boolean, isinvited?: boolean, alreadyPledged?: boolean, paid?: boolean}) {
     const navigate = useNavigate();
-    const onClick = () => navigate(`${ROUTE_NAMES.EVENTS}/9754830403493?isOwner=${isOwner ? "true" : ""}&isinvited=${isinvited ? "true" : ""}&alreadyPledged=${alreadyPledged ? "true" : ""}&isPublic=${isPublic ? "true" : ""}&paid=${paid ? "true" : ""}`)
+    const onClick = () => {
+        if(isOwner) {
+            navigate(`${ROUTE_NAMES.EVENTS}/9754830403493/owner`)
+            return;
+        }
+        if(isinvited && !alreadyPledged) {
+            navigate(`${ROUTE_NAMES.EVENTS}/9754830403493/invite-pledging`)
+            return;
+        }
+        if(isinvited && alreadyPledged && paid) {
+            navigate(`${ROUTE_NAMES.EVENTS}/9754830403493/invite-pledge-paid`)
+            return;
+        }
+        if(isinvited && alreadyPledged) {
+            navigate(`${ROUTE_NAMES.EVENTS}/9754830403493/invite-pledged`)
+            return;
+        }
+        navigate(`${ROUTE_NAMES.EVENTS}/9754830403493?isOwner=${isOwner ? "true" : ""}&isinvited=${isinvited ? "true" : ""}&alreadyPledged=${alreadyPledged ? "true" : ""}&isPublic=${isPublic ? "true" : ""}&paid=${paid ? "true" : ""}`)
+    }
     return (
         <div onClick={onClick} className="space-y-4 border-b pb-8 cursor-pointer">
             <img 

@@ -3,15 +3,15 @@ import {
     AccordionContent,
     AccordionItem,
     AccordionTrigger,
-    Calendar,
     DatePicker,
     Input,
     Label
 } from "@dynamic-gen/avengers-ui";
 import { Info, Search, Star } from "lucide-react";
-import { serviceProviders } from "../pages/events-create/components/step1";
 import { useNavigate } from "react-router";
 import ROUTE_NAMES from "../config/router/route-names";
+import { serviceProviders } from "../pages/events-create/components/step1";
+import { AvailableDatesCalendar } from "./available-dates-calendar";
 
 export function ServiceProvidersSearch(props: {isCreateStep?: boolean}) {
     const navigate = useNavigate();
@@ -20,7 +20,6 @@ export function ServiceProvidersSearch(props: {isCreateStep?: boolean}) {
     if(!props?.isCreateStep) {
         return (
             <div className="flex flex-col gap-4">
-                <Input Icon={<Search size={16} />} placeholder="Enter provider name" />
                 <div className="flex flex-col gap-0">
                     {
                         serviceProviders?.map((provider) => (
@@ -90,31 +89,7 @@ export function ServiceProvidersSearch(props: {isCreateStep?: boolean}) {
                                     </div>
                                     
                                     <p className="text-xs">Here is when {provider?.name} becomes available</p>
-                                    <Calendar
-                                        mode="multiple"
-                                        selected={[
-                                                new Date(), 
-                                                (() => {
-                                                    const today = new Date();
-                                                    const tomorrow = new Date();
-                                                    tomorrow.setDate(today.getDate() + 1);
-                                                    return tomorrow;
-                                                })(), 
-                                                (() => {
-                                                    const today = new Date();
-                                                    const tomorrow = new Date();
-                                                    tomorrow.setDate(today.getDate() + 3);
-                                                    return tomorrow;
-                                                })(), 
-                                                (() => {
-                                                    const today = new Date();
-                                                    const tomorrow = new Date();
-                                                    tomorrow.setDate(today.getDate() + 4);
-                                                    return tomorrow;
-                                                })()
-                                            ]
-                                        }
-                                    />
+                                    <AvailableDatesCalendar />
                                     <fieldset className="flex flex-col gap-1">
                                         <Label className="text-xs text-gray-600">Change Event Date</Label>
                                         <DatePicker />

@@ -21,6 +21,22 @@ import { ServiceProvidersSearch } from "../../../components/service-providers-se
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
 import { Paragraph } from "../../../components/ui/paragraph.tsx";
 import { StepType } from "../index.tsx";
+import clsx from "clsx";
+
+export type CreateFormData = {
+    name?: string;
+    location?: string;
+    privacy?: "public" | "private";
+    greeting?: string;
+    date?: Date;
+    eventType?: string;
+    budget?: string;
+    attendees?: string;
+    useChangisha?: boolean;
+    changishaAccount?: string;
+    createChangishaAccount?: boolean;
+    features?: { id: string, name: string, category: string, package?: {id?: string; price?: string} }[];
+};
 
 export const serviceProviders = [
     {
@@ -98,7 +114,6 @@ export const serviceProviders = [
 ]
 
 export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
-    const selectedEvent = "wedding";
     const eventFeaturesList = [
         {
             value: "dj",
@@ -123,6 +138,29 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
         },
     ];
     const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+    
+    const [formData, setFormData] = useState<CreateFormData>();
+    
+    type onChangeFormDataKeyType = keyof CreateFormData;
+    
+    const onChangeFormData = (key: onChangeFormDataKeyType, value?: string | boolean | Date | { id: string, name: string, category: string, package?: {id?: string; price?: string} }) => {
+        if (key  === "features") {
+            const currentFeatures = formData?.features ?? [];
+            const targetValue = value as { id: string, name: string, category: string, package?: {id?: string; price?: string} };
+            const alreadyExists = !!currentFeatures?.filter(dt => dt?.id === targetValue?.id)?.length;
+
+            if(alreadyExists) {
+                setFormData(prev => ({...prev, features: currentFeatures?.filter(dt => dt?.id !== targetValue?.id)}))
+            } else {
+                setFormData(prev => ({...prev, features: [...currentFeatures, targetValue]}))
+            }
+            return;
+        }
+        
+        setFormData(prev => ({...prev, [key]: value}));
+    };
+
+    const onCreateEvent = () => console.log(formData)
 
     return (
         <div className="flex flex-col gap-6">
@@ -135,12 +173,12 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
             <div className="flex flex-col gap-2">
                 <Label>Event name</Label>
-                <Input placeholder="Event name ..." />
+                <Input placeholder="Event name ..." value={formData?.name} onChange={e => onChangeFormData("name", e?.target?.value)} />
             </div>
 
             <div className="flex flex-col gap-2">
                 <Label>Location</Label>
-                <Input placeholder="Enter location ..." />
+                <Input placeholder="Enter location ..." value={formData?.location} onChange={e => onChangeFormData("location", e?.target?.value)} />
             </div>
 
             <div className="flex flex-col gap-2">
@@ -152,11 +190,12 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                     ].map((dt) => (
                         <div
                             key={dt.value}
-                            className="flex items-center gap-2 border-b p-3 bg-accent/20 rounded-md"
+                            onClick={() => onChangeFormData("privacy", dt?.value)}
+                            className="flex items-center gap-2 border-b p-3 bg-accent/20 rounded-md cursor-pointer"
                         >
                             <div
                                 className="size-5 grid place-content-center border border-primary rounded-full bg-background">
-                                {"private" === dt.value && <Check size={12}/>}
+                                {formData?.privacy === dt.value && <Check size={12}/>}
                             </div>
                             <p className="text-sm">{dt.label}</p>
                         </div>
@@ -166,12 +205,12 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
             <div className="flex flex-col gap-2">
                 <Label>Greeting message</Label>
-                <Textarea rows={10} placeholder="eg. With great joy and excitement, we invite you to celebrate the union of Sarah Johnson and Michael Williams" className="text-sm" />
+                <Textarea value={formData?.greeting} onChange={e => onChangeFormData("greeting", e?.target?.value)} rows={10} placeholder="eg. With great joy and excitement, we invite you to celebrate the union of Sarah Johnson and Michael Williams" className="text-sm" />
             </div>
 
             <div className="flex flex-col gap-2">
                 <Label>Date of event</Label>
-                <DatePicker/>
+                <DatePicker onChangePicker={date => onChangeFormData("date", date)}/>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -184,11 +223,12 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                     ].map((dt) => (
                         <div
                             key={dt.value}
-                            className="flex items-center gap-2 border-b p-3 bg-accent/20 rounded-md"
+                            onClick={() => onChangeFormData("eventType", dt?.value)}
+                            className="flex items-center gap-2 border-b p-3 bg-accent/20 rounded-md cursor-pointer"
                         >
                             <div
                                 className="size-5 grid place-content-center border border-primary rounded-full bg-background">
-                                {selectedEvent === dt.value && <Check size={12}/>}
+                                {formData?.eventType === dt?.value && <Check size={12}/>}
                             </div>
                             <p className="text-sm">{dt.label}</p>
                         </div>
@@ -198,7 +238,12 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
             <div className="flex flex-col gap-2">
                 <Label>Budget</Label>
-                <Input type="tel" placeholder="eg, 20,000,000"/>
+                <Input type="tel" placeholder="eg, 20,000,000" value={formData?.budget} onChange={e => onChangeFormData("budget", e?.target?.value)}/>
+            </div>
+
+            <div className="flex flex-col gap-2">
+                <Label>Number of attendees</Label>
+                <Input type="tel" placeholder="eg, 59" value={formData?.attendees} onChange={e => onChangeFormData("attendees", e?.target?.value)}/>
             </div>
 
             <div className="flex flex-col gap-2">
@@ -254,13 +299,30 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                             </Sheet>
                                             {
                                                 serviceProviders
-                                                    .map(serviceProvider => (
+                                                    .map(serviceProvider => {
+                                                        const _isSelected = !!formData?.features?.filter(dt => dt?.id === serviceProvider?.name)?.length;
+                                                        return (
                                                         <Sheet key={serviceProvider?.name}>
                                                             <SheetTrigger>
                                                                 <div
-                                                                    className={"flex flex-col gap-1 items-center rounded-md py-2 px-4"}>
+                                                                    className={
+                                                                        clsx(
+                                                                            "flex flex-col gap-1 items-center rounded-md py-2 px-4 relative",
+                                                                            _isSelected && "border bg-gray-100 shadow-md"
+                                                                        )
+                                                                    }>
+                                                                    
+                                                                    <div className={
+                                                                        clsx(
+                                                                            "absolute right-2 top-2",
+                                                                            !_isSelected && "hidden",
+                                                                            _isSelected && "size-4 border rounded-full bg-primary/20 grid place-content-center"
+                                                                        )
+                                                                    }>
+                                                                        <Check size={12} />
+                                                                    </div>
                                                                     <div
-                                                                        className="size-16 roundef-full border-4 border-white">
+                                                                        className="size-16 rounded-full border-4 border-white">
                                                                         <img src={serviceProvider?.profile} alt=""
                                                                              className="w-full h-full object-cover rounded-full"/>
                                                                     </div>
@@ -288,10 +350,10 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                                                                     </SheetDescription>
                                                                 </SheetHeader>
 
-                                                                <ProviderProfile serviceProvider={serviceProvider} />
+                                                                <ProviderProfile serviceProvider={serviceProvider} isSelected={_isSelected} onChangeFormData={onChangeFormData} />
                                                             </SheetContent>
                                                         </Sheet>
-                                                    ))
+                                                    )})
                                             }
                                         </div>
                                     </div>
@@ -300,7 +362,14 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                             <div className="flex gap-2 flex-col items-center my-8">
                                 <Paragraph className="text-sm font-normal text-muted-foreground">Total</Paragraph>
                                 <Paragraph className="text-4xl font-black">
-                                    6,000,000
+                                    {
+                                        formData
+                                            ?.features
+                                            ?.map(dt => dt?.id)
+                                            ?.map(dt => serviceProviders?.find(dt2 => dt2?.name === dt)?.price)
+                                            ?.reduce((acc, itr) => acc + (isNaN(Number(itr) ?? 0) ? 0 : (Number(itr) ?? 0)), 0)
+                                            ?.toLocaleString()
+                                    }
                                 </Paragraph>
                             </div>
                         </div>
@@ -310,13 +379,45 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
             <div className="flex flex-col gap-2">
                 <Label>Payment</Label>
-                <div className="flex items-center gap-4 justify-between text-sm">
-                    <p>Use Changisha</p>
-                    <Switch checked />
+                <div className="flex flex-col gap-4 justify-between text-sm border-t py-4">
+                    <div className="flex items-center gap-4 justify-between text-sm px-4">
+                        <p>Use Changisha</p>
+                        <Switch checked={formData?.useChangisha} onCheckedChange={val => onChangeFormData("useChangisha", val)} />
+                    </div>
+                    {
+                        formData?.useChangisha
+                            ? (
+                                <>
+                                    <small className="text-center">Your changisha accounts</small>
+                                    <div className="flex flex-col gap-0">
+                                        {
+                                            [
+                                                {label: "Changisha Account 1", value: "changisha-account-1"},
+                                                {label: "Changisha Account 2", value: "changisha-account-2"},
+                                                {label: "Create Changisha Account Automatically", value: "create-account-automatically"},
+                                            ].map(dt => (
+                                                <div
+                                                    key={dt.value}
+                                                    onClick={() => onChangeFormData("changishaAccount", dt?.value)}
+                                                    className="flex items-center gap-2 border-b p-3 bg-accent/20 rounded-md cursor-pointer"
+                                                >
+                                                    <div
+                                                        className="size-5 grid place-content-center border border-primary rounded-full bg-background">
+                                                        {formData?.changishaAccount === dt?.value && <Check size={12}/>}
+                                                    </div>
+                                                    <p className="text-sm">{dt.label}</p>
+                                                </div>
+                                            ))
+                                        }
+                                    </div>
+                                </>
+                            )
+                            : null
+                    }
                 </div>
             </div>
 
-            <Button onClick={() => props?.onChangeStep(2)}>
+            <Button onClick={onCreateEvent}>
                 <Paragraph className="text-sm">Create Event</Paragraph>
                 <MoveRight/>
             </Button>
