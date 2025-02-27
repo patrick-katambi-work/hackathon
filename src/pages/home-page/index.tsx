@@ -15,7 +15,7 @@ export function HomePage() {
             <div className="h-screen grid grid-rows-12 gap-4">
                 <div className="row-span-1">
                     <header className="text-center">
-                        <Title>Terms and Services</Title>
+                        <Title>Terms and Conditions</Title>
                         <p className="text-sm text-gray-600">Last updated: February 26, 2025</p>
                     </header>
                 </div>    
