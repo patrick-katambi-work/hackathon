@@ -14,14 +14,14 @@ import {
     Textarea
 } from "@dynamic-gen/avengers-ui";
 import { faker } from "@faker-js/faker";
-import { Car, Check, House, MoveRight, Music, Search, Star } from "lucide-react";
+import clsx from "clsx";
+import { Car, Check, House, Minus, MoveRight, Music, Plus, Search, Star } from "lucide-react";
 import { useState } from "react";
 import { ProviderProfile } from "../../../components/provider-profile.tsx";
 import { ServiceProvidersSearch } from "../../../components/service-providers-search.tsx";
 import { MutedParagraph } from "../../../components/ui/muted-paragraph.tsx";
 import { Paragraph } from "../../../components/ui/paragraph.tsx";
 import { StepType } from "../index.tsx";
-import clsx from "clsx";
 
 export type CreateFormData = {
     name?: string;
@@ -162,6 +162,10 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
 
     const onCreateEvent = () => console.log(formData)
 
+    const [packages, setPackages] = useState<{name: string, price: string}[]>([
+        {name: "", price: ""}
+    ])
+
     return (
         <div className="flex flex-col gap-6">
             <Paragraph className="text-sm">
@@ -200,6 +204,33 @@ export function StepOne(props: { onChangeStep: (step: StepType) => void }) {
                             <p className="text-sm">{dt.label}</p>
                         </div>
                     ))}
+                </div>
+            </div>
+
+            <div style={{display: formData?.privacy === "public" ? "flex" : "none"}} className="flex-col gap-2">
+                <Label>Packages</Label>
+                <div className="flex flex-col gap-2">
+                    <div className="grid grid-cols-[1fr_1fr_40px] gap-2">
+                        <p className="text-xs text-muted-foreground">Name</p>
+                        <p className="text-xs text-muted-foreground">Price</p>
+                        <p></p>
+                    </div>
+                    {
+                        packages?.map((_, pkgIndex) => (
+                            <div className="grid grid-cols-[1fr_1fr_40px] gap-2">
+                                <div className="w-full">
+                                    <Input placeholder="eg, Family Plan" className="w-full text-xs" />
+                                </div>
+                                <div className="w-full">
+                                    <Input placeholder="eg, 25,000" className="w-full text-xs" />
+                                </div>
+                                <div className="w-full grid place-content-center">
+                                    <Button onClick={() => setPackages(prev => prev?.filter((_, dtIndex) => dtIndex !== pkgIndex))} size={"icon"} variant={"outline"}><Minus /></Button>
+                                </div>
+                            </div>
+                        ))
+                    }
+                    <Button size={"icon"} onClick={() => setPackages(prev => ([...prev, {name: "", price: ""}]))} variant={"default"}><Plus /></Button>
                 </div>
             </div>
 
